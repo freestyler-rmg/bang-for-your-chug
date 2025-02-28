@@ -1,1 +1,279 @@
-<!DOCTYPE html><html lang="en" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.4.0"><title>Bang For Your Chug!</title><link rel="stylesheet" href="/_astro/index.CtapA1AW.css"></head> <body data-astro-cid-sckkx6r4>  <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();;(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="XKnpy" prefix="v0" component-url="/_astro/AlcoholCalculator.br2OmL-d.js" component-export="default" renderer-url="/_astro/client.DYs6lupj.js" props="{}" ssr client="load" opts="{&quot;name&quot;:&quot;AlcoholCalculator&quot;,&quot;value&quot;:true}" await-children><div id="calculator-container" class="flex max-w-screen min-h-screen justify-center items-center flex-col p-4"><h1 class="mb-8 text-3xl">Bang for Your Chug!</h1><form style="" class="flex flex-col"><div class="mb-8 flex flex-col items-center"><label for="volume" class="text-xl mb-2">Volume (ml)</label><input type="number" id="volume" name="volume" min="0" class="border-1 rounded-sm border-gray-300 px-3 py-2 text-center"></div><div class="mb-8 flex flex-col items-center"><label for="alcohol" class="text-xl mb-2">Alcohol by Volume (%)</label><input type="number" id="alcohol" name="alcohol" min="0" step=".1" class="border-1 rounded-sm border-gray-300 px-3 py-2 text-center"></div><div class="mb-8 flex flex-col items-center"><label for="price" class="text-xl mb-2">Price</label><input type="number" id="price" name="price" min="0" class="border-1 rounded-sm border-gray-300 px-3 py-2 text-center"></div><div class="mb-12 flex flex-col items-center"><label for="price" class="text-xl mb-2">Currency</label><input type="text" id="price" name="price" value="IDR" class="border-1 rounded-sm border-gray-300 px-3 py-2 text-center"></div><div class="flex flex-col items-center"><button type="submit" class="bg-cyan-500 hover:bg-cyan-700 disabled:bg-gray-300 text-white font-bold py-2 px-4 rounded"> Calculate! </button></div></form><div style="display:none;" class="flex flex-col items-center"><p>Info:</p><p class="mb-6 text-xl">ml, %,  IDR</p><p>Total alcohol:</p><p class="mb-6 text-xl font-semibold">0ml</p><p>Alcohol price:</p><p class="text-xl"><span class="font-semibold">0.00 IDR</span> per <span class="font-semibold">ml</span></p><p class="text-xl mb-12"><span class="font-semibold">0.00 IDR</span> per <span class="font-semibold">1%</span></p><button type="submit" class="border-1 border-cyan-500 hover:border-cyan-700 text-cyan-500 hover:text-cyan-700 font-bold py-2 px-4 rounded cursor-pointer"> Calculate another bottle! </button></div></div><!--astro:end--></astro-island>  </body></html>
+<!DOCTYPE html>
+<html lang="en" data-astro-cid-sckkx6r4>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content="Astro v5.4.0" />
+    <title>Bang For Your Chug!</title>
+    <link rel="stylesheet" href="/bang-for-your-chug/_astro/index.CtapA1AW.css" />
+  </head>
+  <body data-astro-cid-sckkx6r4>
+    <style>
+      astro-island,
+      astro-slot,
+      astro-static-slot {
+        display: contents;
+      }
+    </style>
+    <script>
+      (() => {
+        var e = async (t) => {
+          await (
+            await t()
+          )();
+        };
+        (self.Astro || (self.Astro = {})).load = e;
+        window.dispatchEvent(new Event('astro:load'));
+      })();
+      (() => {
+        var A = Object.defineProperty;
+        var g = (i, o, a) =>
+          o in i
+            ? A(i, o, { enumerable: !0, configurable: !0, writable: !0, value: a })
+            : (i[o] = a);
+        var d = (i, o, a) => g(i, typeof o != 'symbol' ? o + '' : o, a);
+        {
+          let i = {
+              0: (t) => m(t),
+              1: (t) => a(t),
+              2: (t) => new RegExp(t),
+              3: (t) => new Date(t),
+              4: (t) => new Map(a(t)),
+              5: (t) => new Set(a(t)),
+              6: (t) => BigInt(t),
+              7: (t) => new URL(t),
+              8: (t) => new Uint8Array(t),
+              9: (t) => new Uint16Array(t),
+              10: (t) => new Uint32Array(t),
+              11: (t) => (1 / 0) * t,
+            },
+            o = (t) => {
+              let [l, e] = t;
+              return l in i ? i[l](e) : void 0;
+            },
+            a = (t) => t.map(o),
+            m = (t) =>
+              typeof t != 'object' || t === null
+                ? t
+                : Object.fromEntries(Object.entries(t).map(([l, e]) => [l, o(e)]));
+          class y extends HTMLElement {
+            constructor() {
+              super(...arguments);
+              d(this, 'Component');
+              d(this, 'hydrator');
+              d(this, 'hydrate', async () => {
+                var b;
+                if (!this.hydrator || !this.isConnected) return;
+                let e = (b = this.parentElement) == null ? void 0 : b.closest('astro-island[ssr]');
+                if (e) {
+                  e.addEventListener('astro:hydrate', this.hydrate, { once: !0 });
+                  return;
+                }
+                let c = this.querySelectorAll('astro-slot'),
+                  n = {},
+                  h = this.querySelectorAll('template[data-astro-template]');
+                for (let r of h) {
+                  let s = r.closest(this.tagName);
+                  s != null &&
+                    s.isSameNode(this) &&
+                    ((n[r.getAttribute('data-astro-template') || 'default'] = r.innerHTML),
+                    r.remove());
+                }
+                for (let r of c) {
+                  let s = r.closest(this.tagName);
+                  s != null &&
+                    s.isSameNode(this) &&
+                    (n[r.getAttribute('name') || 'default'] = r.innerHTML);
+                }
+                let p;
+                try {
+                  p = this.hasAttribute('props') ? m(JSON.parse(this.getAttribute('props'))) : {};
+                } catch (r) {
+                  let s = this.getAttribute('component-url') || '<unknown>',
+                    v = this.getAttribute('component-export');
+                  throw (
+                    (v && (s += ` (export ${v})`),
+                    console.error(
+                      `[hydrate] Error parsing props for component ${s}`,
+                      this.getAttribute('props'),
+                      r,
+                    ),
+                    r)
+                  );
+                }
+                let u;
+                await this.hydrator(this)(this.Component, p, n, {
+                  client: this.getAttribute('client'),
+                }),
+                  this.removeAttribute('ssr'),
+                  this.dispatchEvent(new CustomEvent('astro:hydrate'));
+              });
+              d(this, 'unmount', () => {
+                this.isConnected || this.dispatchEvent(new CustomEvent('astro:unmount'));
+              });
+            }
+            disconnectedCallback() {
+              document.removeEventListener('astro:after-swap', this.unmount),
+                document.addEventListener('astro:after-swap', this.unmount, { once: !0 });
+            }
+            connectedCallback() {
+              if (
+                !this.hasAttribute('await-children') ||
+                document.readyState === 'interactive' ||
+                document.readyState === 'complete'
+              )
+                this.childrenConnectedCallback();
+              else {
+                let e = () => {
+                    document.removeEventListener('DOMContentLoaded', e),
+                      c.disconnect(),
+                      this.childrenConnectedCallback();
+                  },
+                  c = new MutationObserver(() => {
+                    var n;
+                    ((n = this.lastChild) == null ? void 0 : n.nodeType) === Node.COMMENT_NODE &&
+                      this.lastChild.nodeValue === 'astro:end' &&
+                      (this.lastChild.remove(), e());
+                  });
+                c.observe(this, { childList: !0 }),
+                  document.addEventListener('DOMContentLoaded', e);
+              }
+            }
+            async childrenConnectedCallback() {
+              let e = this.getAttribute('before-hydration-url');
+              e && (await import(e)), this.start();
+            }
+            async start() {
+              let e = JSON.parse(this.getAttribute('opts')),
+                c = this.getAttribute('client');
+              if (Astro[c] === void 0) {
+                window.addEventListener(`astro:${c}`, () => this.start(), { once: !0 });
+                return;
+              }
+              try {
+                await Astro[c](
+                  async () => {
+                    let n = this.getAttribute('renderer-url'),
+                      [h, { default: p }] = await Promise.all([
+                        import(this.getAttribute('component-url')),
+                        n ? import(n) : () => () => {},
+                      ]),
+                      u = this.getAttribute('component-export') || 'default';
+                    if (!u.includes('.')) this.Component = h[u];
+                    else {
+                      this.Component = h;
+                      for (let f of u.split('.')) this.Component = this.Component[f];
+                    }
+                    return (this.hydrator = p), this.hydrate;
+                  },
+                  e,
+                  this,
+                );
+              } catch (n) {
+                console.error(
+                  `[astro-island] Error hydrating ${this.getAttribute('component-url')}`,
+                  n,
+                );
+              }
+            }
+            attributeChangedCallback() {
+              this.hydrate();
+            }
+          }
+          d(y, 'observedAttributes', ['props']),
+            customElements.get('astro-island') || customElements.define('astro-island', y);
+        }
+      })();
+    </script>
+    <astro-island
+      uid="XKnpy"
+      prefix="v0"
+      component-url="/bang-for-your-chug/_astro/AlcoholCalculator.br2OmL-d.js"
+      component-export="default"
+      renderer-url="/bang-for-your-chug/_astro/client.DYs6lupj.js"
+      props="{}"
+      ssr
+      client="load"
+      opts='{"name":"AlcoholCalculator","value":true}'
+      await-children
+      ><div
+        id="calculator-container"
+        class="flex max-w-screen min-h-screen justify-center items-center flex-col p-4"
+      >
+        <h1 class="mb-8 text-3xl">Bang for Your Chug!</h1>
+        <form style="" class="flex flex-col">
+          <div class="mb-8 flex flex-col items-center">
+            <label for="volume" class="text-xl mb-2">Volume (ml)</label
+            ><input
+              type="number"
+              id="volume"
+              name="volume"
+              min="0"
+              class="border-1 rounded-sm border-gray-300 px-3 py-2 text-center"
+            />
+          </div>
+          <div class="mb-8 flex flex-col items-center">
+            <label for="alcohol" class="text-xl mb-2">Alcohol by Volume (%)</label
+            ><input
+              type="number"
+              id="alcohol"
+              name="alcohol"
+              min="0"
+              step=".1"
+              class="border-1 rounded-sm border-gray-300 px-3 py-2 text-center"
+            />
+          </div>
+          <div class="mb-8 flex flex-col items-center">
+            <label for="price" class="text-xl mb-2">Price</label
+            ><input
+              type="number"
+              id="price"
+              name="price"
+              min="0"
+              class="border-1 rounded-sm border-gray-300 px-3 py-2 text-center"
+            />
+          </div>
+          <div class="mb-12 flex flex-col items-center">
+            <label for="price" class="text-xl mb-2">Currency</label
+            ><input
+              type="text"
+              id="price"
+              name="price"
+              value="IDR"
+              class="border-1 rounded-sm border-gray-300 px-3 py-2 text-center"
+            />
+          </div>
+          <div class="flex flex-col items-center">
+            <button
+              type="submit"
+              class="bg-cyan-500 hover:bg-cyan-700 disabled:bg-gray-300 text-white font-bold py-2 px-4 rounded"
+            >
+              Calculate!
+            </button>
+          </div>
+        </form>
+        <div style="display: none" class="flex flex-col items-center">
+          <p>Info:</p>
+          <p class="mb-6 text-xl">ml, %, IDR</p>
+          <p>Total alcohol:</p>
+          <p class="mb-6 text-xl font-semibold">0ml</p>
+          <p>Alcohol price:</p>
+          <p class="text-xl">
+            <span class="font-semibold">0.00 IDR</span> per <span class="font-semibold">ml</span>
+          </p>
+          <p class="text-xl mb-12">
+            <span class="font-semibold">0.00 IDR</span> per <span class="font-semibold">1%</span>
+          </p>
+          <button
+            type="submit"
+            class="border-1 border-cyan-500 hover:border-cyan-700 text-cyan-500 hover:text-cyan-700 font-bold py-2 px-4 rounded cursor-pointer"
+          >
+            Calculate another bottle!
+          </button>
+        </div>
+      </div>
+      <!--astro:end--></astro-island
+    >
+  </body>
+</html>
