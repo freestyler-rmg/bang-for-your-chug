@@ -34,7 +34,7 @@ function floatFormatter(value: number) {
     id="calculator-container"
     class="flex max-w-screen min-h-screen justify-center items-center flex-col p-4"
   >
-    <h1 class="mb-8 text-3xl">Bang for Your Chug!</h1>
+    <h1 class="mb-8 text-3xl">Bang for Your Chug! test</h1>
 
     <form v-show="isShowCalculator" class="flex flex-col" @submit.prevent="calculate">
       <div class="mb-8 flex flex-col items-center">

@@ -2,16 +2,19 @@
   "name": "bang-for-your-chug",
   "type": "module",
   "version": "0.0.1",
+  "homepage": "https://freestyler-rmg.github.io/bang-for-your-chug/",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@astrojs/vue": "^5.0.7",
     "@tailwindcss/vite": "^4.0.9",
     "astro": "^5.4.0",
+    "gh-pages": "^6.3.0",
     "tailwindcss": "^4.0.9",
     "vue": "^3.5.13"
   }
