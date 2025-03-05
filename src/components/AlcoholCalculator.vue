@@ -1,23 +1,23 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-const volume = ref(null);
-const abv = ref(null);
-const price = ref(null);
-const currency = ref('IDR');
+const volume = ref<null | number>(null);
+const abv = ref<null | number>(null);
+const price = ref<null | number>(null);
+const currency = ref<string>('IDR');
 
-const alcoholVolume = ref(0);
-const alcoholPricePerMilliliter = ref(0);
-const alcoholPricePerPercent = ref(0);
+const alcoholVolume = ref<number>(0);
+const alcoholPricePerMilliliter = ref<number>(0);
+const alcoholPricePerPercent = ref<number>(0);
 
-const isShowCalculator = ref(true);
+const isShowResult = ref<boolean>(false);
 
-const isButtonDisabled = computed(() => {
-  return !volume.value && !abv.value && !price.value && !currency.value;
+const isButtonDisabled = computed((): boolean => {
+  return !volume.value || !abv.value || !price.value || !currency.value;
 });
 
 function calculate() {
-  isShowCalculator.value = false;
+  isShowResult.value = true;
 
   alcoholVolume.value = (volume.value * abv.value) / 100;
   alcoholPricePerMilliliter.value = price.value / alcoholVolume.value;
@@ -32,11 +32,17 @@ function floatFormatter(value: number) {
 <template>
   <div
     id="calculator-container"
-    class="flex max-w-screen min-h-screen justify-center items-center flex-col p-4"
+    class="flex max-w-screen min-h-screen justify-center items-center flex-col px-4 py-8"
   >
-    <h1 class="mb-8 text-3xl">Bang for Your Chug! test</h1>
+    <div class="mb-8 text-center">
+      <h1 class="mb-2 text-3xl">Bang for Your Chug!</h1>
+      <p class="text-sm">
+        Alcoholic beverage ain't cheap,<br />but doesn't mean you can't efficiently reap what you
+        sip.
+      </p>
+    </div>
 
-    <form v-show="isShowCalculator" class="flex flex-col" @submit.prevent="calculate">
+    <form class="flex flex-col" @submit.prevent="calculate">
       <div class="mb-8 flex flex-col items-center">
         <label for="volume" class="text-xl mb-2">Volume (ml)</label>
         <input
@@ -92,36 +98,32 @@ function floatFormatter(value: number) {
           :disabled="isButtonDisabled"
           @submit.prevent="calculate"
         >
-          Calculate!
+          Calculate the alcohol price!
         </button>
       </div>
     </form>
 
-    <div v-show="!isShowCalculator" class="flex flex-col items-center">
-      <p>Info:</p>
-      <p class="mb-6 text-xl">{{ volume }}ml, {{ abv }}%, {{ price }} {{ currency }}</p>
-      <p>Total alcohol:</p>
-      <p class="mb-6 text-xl font-semibold">{{ alcoholVolume }}ml</p>
-      <p>Alcohol price:</p>
-      <p class="text-xl">
-        <span class="font-semibold"
-          >{{ floatFormatter(alcoholPricePerMilliliter) }} {{ currency }}</span
-        >
-        per <span class="font-semibold">ml</span>
-      </p>
-      <p class="text-xl mb-12">
-        <span class="font-semibold"
-          >{{ floatFormatter(alcoholPricePerPercent) }} {{ currency }}</span
-        >
-        per <span class="font-semibold">1%</span>
-      </p>
+    <div v-if="isShowResult">
+      <hr class="w-md pb-8 mt-8" />
+      <div class="flex flex-col items-center">
+        <p>Total alcohol:</p>
+        <p class="mb-6 text-xl font-semibold">{{ alcoholVolume }}ml</p>
+        <p>Alcohol price:</p>
+        <p class="text-xl">
+          <span class="font-semibold"
+            >{{ floatFormatter(alcoholPricePerMilliliter) }} {{ currency }}</span
+          >
+          per <span class="font-semibold">ml</span>
+        </p>
+        <p class="text-xl mb-12">
+          <span class="font-semibold"
+            >{{ floatFormatter(alcoholPricePerPercent) }} {{ currency }}</span
+          >
+          per <span class="font-semibold">1% ({{ volume / 100 }}ml)</span>
+        </p>
 
-      <button
-        type="submit"
-        class="border-1 border-cyan-500 hover:border-cyan-700 text-cyan-500 hover:text-cyan-700 font-bold py-2 px-4 rounded cursor-pointer"
-      >
-        Calculate another bottle!
-      </button>
+        <button></button>
+      </div>
     </div>
   </div>
 </template>
