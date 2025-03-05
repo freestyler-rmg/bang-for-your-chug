@@ -16,16 +16,34 @@ const isButtonDisabled = computed((): boolean => {
   return !volume.value || !abv.value || !price.value || !currency.value;
 });
 
+const display = ref({
+  volume: 0,
+  abv: 0,
+  price: 0,
+  currency: '',
+});
+
+function currencyFormatter(value: number) {
+  return new Intl.NumberFormat(currency.value.toLowerCase() === 'idr' ? 'id' : 'en', {
+    maximumFractionDigits: 2,
+  }).format(value);
+}
+
 function calculate() {
   isShowResult.value = true;
 
   alcoholVolume.value = (volume.value * abv.value) / 100;
-  alcoholPricePerMilliliter.value = price.value / alcoholVolume.value;
-  alcoholPricePerPercent.value = alcoholPricePerMilliliter.value * (volume.value / 100);
-}
+  alcoholPricePerMilliliter.value = currencyFormatter(price.value / alcoholVolume.value);
+  alcoholPricePerPercent.value = currencyFormatter(
+    (price.value / alcoholVolume.value) * (volume.value / 100),
+  );
 
-function floatFormatter(value: number) {
-  return parseFloat(value).toFixed(2);
+  display.value = {
+    volume: volume.value,
+    abv: abv.value,
+    price: price.value,
+    currency: currency.value,
+  };
 }
 </script>
 
@@ -94,7 +112,7 @@ function floatFormatter(value: number) {
       <div class="flex flex-col items-center">
         <button
           type="submit"
-          class="bg-cyan-500 hover:bg-cyan-700 disabled:bg-gray-300 text-white font-bold py-2 px-4 rounded"
+          class="bg-cyan-500 hover:bg-cyan-700 disabled:bg-gray-300 text-white font-bold py-2 px-4 rounded cursor-pointer"
           :disabled="isButtonDisabled"
           @submit.prevent="calculate"
         >
@@ -110,16 +128,12 @@ function floatFormatter(value: number) {
         <p class="mb-6 text-xl font-semibold">{{ alcoholVolume }}ml</p>
         <p>Alcohol price:</p>
         <p class="text-xl">
-          <span class="font-semibold"
-            >{{ floatFormatter(alcoholPricePerMilliliter) }} {{ currency }}</span
-          >
+          <span class="font-semibold">{{ alcoholPricePerMilliliter }} {{ display.currency }}</span>
           per <span class="font-semibold">ml</span>
         </p>
         <p class="text-xl mb-12">
-          <span class="font-semibold"
-            >{{ floatFormatter(alcoholPricePerPercent) }} {{ currency }}</span
-          >
-          per <span class="font-semibold">1% ({{ volume / 100 }}ml)</span>
+          <span class="font-semibold">{{ alcoholPricePerPercent }} {{ display.currency }}</span>
+          per <span class="font-semibold">1% ({{ display.volume / 100 }}ml)</span>
         </p>
 
         <button></button>
