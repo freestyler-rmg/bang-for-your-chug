@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, nextTick } from 'vue';
 
 const volume = ref<null | number>(null);
 const abv = ref<null | number>(null);
@@ -16,12 +16,17 @@ const isButtonDisabled = computed((): boolean => {
   return !volume.value || !abv.value || !price.value || !currency.value;
 });
 
-const display = ref({
-  volume: 0,
-  abv: 0,
-  price: 0,
-  currency: '',
-});
+interface History {
+  volume: number;
+  abv: number;
+  price: number;
+  currency: string;
+  alcoholVolume: number;
+  alcoholPricePerMilliliter: string;
+  alcoholPricePerPercent: string;
+}
+
+const history = ref<History[]>([]);
 
 function currencyFormatter(value: number) {
   return new Intl.NumberFormat(currency.value.toLowerCase() === 'idr' ? 'id' : 'en', {
@@ -29,21 +34,35 @@ function currencyFormatter(value: number) {
   }).format(value);
 }
 
-function calculate() {
+async function calculate() {
   isShowResult.value = true;
 
-  alcoholVolume.value = (volume.value * abv.value) / 100;
-  alcoholPricePerMilliliter.value = currencyFormatter(price.value / alcoholVolume.value);
-  alcoholPricePerPercent.value = currencyFormatter(
-    (price.value / alcoholVolume.value) * (volume.value / 100),
+  const alcoholVolume = (volume.value * abv.value) / 100;
+  const alcoholPricePerMilliliter = currencyFormatter(price.value / alcoholVolume);
+  const alcoholPricePerPercent = currencyFormatter(
+    (price.value / alcoholVolume) * (volume.value / 100),
   );
 
-  display.value = {
+  if (history.value.length > 1) {
+    history.value.shift();
+  }
+
+  history.value.push({
     volume: volume.value,
     abv: abv.value,
     price: price.value,
     currency: currency.value,
-  };
+    alcoholVolume: alcoholVolume,
+    alcoholPricePerMilliliter: alcoholPricePerMilliliter,
+    alcoholPricePerPercent: alcoholPricePerPercent,
+  });
+
+  await nextTick();
+
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth', // Optional: Add smooth scrolling effect
+  });
 }
 </script>
 
@@ -122,21 +141,28 @@ function calculate() {
     </form>
 
     <div v-if="isShowResult">
-      <hr class="w-md pb-8 mt-8" />
-      <div class="flex flex-col items-center">
-        <p>Total alcohol:</p>
-        <p class="mb-6 text-xl font-semibold">{{ alcoholVolume }}ml</p>
-        <p>Alcohol price:</p>
-        <p class="text-xl">
-          <span class="font-semibold">{{ alcoholPricePerMilliliter }} {{ display.currency }}</span>
-          per <span class="font-semibold">ml</span>
-        </p>
-        <p class="text-xl mb-12">
-          <span class="font-semibold">{{ alcoholPricePerPercent }} {{ display.currency }}</span>
-          per <span class="font-semibold">1% ({{ display.volume / 100 }}ml)</span>
-        </p>
-
-        <button></button>
+      <hr class="w-md pb-8 mt-8 mx-auto" />
+      <div class="flex flex-row gap-12 justify-center items-center">
+        <template v-for="(item, index) in history">
+          <div class="text-center">
+            <p class="font-semibold text-sm mb-4">{{ index === 0 ? 'Prev' : 'New' }}</p>
+            <p>Total alcohol:</p>
+            <p class="mb-6 text-xl font-semibold">{{ item.alcoholVolume }}ml</p>
+            <p>Alcohol price:</p>
+            <p class="text-xl">
+              <span class="font-semibold"
+                >{{ item.alcoholPricePerMilliliter }} {{ item.currency }}</span
+              >
+              per <span class="font-semibold">ml</span>
+            </p>
+            <p class="text-xl mb-12">
+              <span class="font-semibold"
+                >{{ item.alcoholPricePerPercent }} {{ item.currency }}</span
+              >
+              per <span class="font-semibold">1% ({{ item.volume / 100 }}ml)</span>
+            </p>
+          </div>
+        </template>
       </div>
     </div>
   </div>
