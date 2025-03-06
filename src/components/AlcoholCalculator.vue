@@ -128,10 +128,12 @@ function textColor(index) {
     class="flex max-w-screen min-h-screen justify-center items-center flex-col px-4 py-8"
   >
     <div class="mb-8 text-center">
-      <h1 class="mb-4 text-3xl">🍻 Bang for Your Chug! 🍻</h1>
-      <p class="text-sm">
-        Alcoholic beverage ain't cheap,<br />but doesn't mean you can't efficiently
-        <br class="md:hidden" />reap what you sip.
+      <h1 class="mb-4 text-3xl">🍻Bang for Your Chug🍻</h1>
+      <p>
+        Calculate and compare your <br class="md:hidden" />alcoholic beverages of choice!
+        <br class="mb-2 md:mb-0" />
+        Which one has the most alcohol value <br class="md:hidden" />and how expensive per ml or
+        percentage.
       </p>
     </div>
 
@@ -195,6 +197,10 @@ function textColor(index) {
       </div>
 
       <div class="flex flex-col items-center">
+        <p class="text-sm text-center mb-4">
+          Alcoholic beverage ain't cheap,<br />but that doesn't mean you can't efficiently
+          <br class="md:hidden" />reap what you sip.
+        </p>
         <button
           type="submit"
           class="bg-cyan-500 hover:bg-cyan-700 disabled:bg-gray-300 text-white font-bold py-2 px-4 rounded cursor-pointer"
