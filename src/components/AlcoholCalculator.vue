@@ -132,8 +132,8 @@ function textColor(index) {
       <p>
         Calculate and compare your <br class="md:hidden" />alcoholic beverages of choice!
         <br class="mb-2 md:mb-0" />
-        Which one has the most alcohol value <br class="md:hidden" />and how expensive per ml or
-        percentage.
+        Find out which one has the highest alcohol content <br class="md:hidden" />and how expensive
+        it is per ml or %.
       </p>
     </div>
 
