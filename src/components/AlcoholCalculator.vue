@@ -252,6 +252,9 @@ function textColor(index) {
       </div>
 
       <div class="text-center">
+        <p class="text-sm mb-4">
+          Psst, want to compare another drink?<br />Just fill out the form above again!
+        </p>
         <button
           @click="reset"
           class="text-rose-700 rounded cursor-pointer border-1 border-rose-800 py-2 px-4 hover:bg-rose-800 hover:text-neutral-50"
