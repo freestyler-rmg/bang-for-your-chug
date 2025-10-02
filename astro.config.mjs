@@ -7,8 +7,7 @@ import vue from '@astrojs/vue';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://freestyler-rmg.github.io',
-  base: 'bang-for-your-chug',
+  site: 'https://freestyler-rmg.github.io/bang-for-your-chug',
   vite: {
     plugins: [tailwindcss()],
   },
