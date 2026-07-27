@@ -1,6 +1,7 @@
 /*
 CHECKLIST
-move input field to input fields
+- auto focus on drink name input on load
+- auto focus on drink name input on function onAddNewDrink
 */
 
 import { useState, useMemo, useEffect } from 'react';
@@ -26,8 +27,8 @@ export default function AlcoholCalculator() {
 
   // TODO: add different error message for abv > 100 and abv < 1
   const isVolumeInvalid = (isVolumeOnChange && !volume.length) || isNaN(volume);
-  const isAbvInvalid = !abv.length || isNaN(abv);
-  const isPriceInvalid = !price.length || isNaN(price);
+  const isAbvInvalid = (isAbvOnChange && !abv.length) || isNaN(abv);
+  const isPriceInvalid = (isPriceOnChange && !price.length) || isNaN(price);
   const isButtonDisabled = isVolumeInvalid || isAbvInvalid || isPriceInvalid || !currency;
 
   function onSetVolume(value: string) {
@@ -92,16 +93,6 @@ export default function AlcoholCalculator() {
     setIsOnPriceOnChange(false);
   }
 
-  function onReset() {
-    setHistory([]);
-    setIsShowResult(false);
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth', // Optional: Add smooth scrolling effect
-    });
-  }
-
   useEffect(() => {
     if (isShowResult) {
       window.scrollTo({
@@ -110,6 +101,24 @@ export default function AlcoholCalculator() {
       });
     }
   }, [history]); // runs after history updates and the DOM reflects it
+
+  // 📜 CODE BLOCK - button interaction
+  function onAddNewDrink() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+
+  function onReset() {
+    setHistory([]);
+    setIsShowResult(false);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
 
   // 📜 CODE BLOCK - add green text color to the cheaper drink
   const comparisonFlags = useMemo(() => {
@@ -149,8 +158,10 @@ export default function AlcoholCalculator() {
             isVolumeInvalid={isVolumeInvalid}
             abv={abv}
             onSetAbv={onSetAbv}
+            isAbvInvalid={isAbvInvalid}
             price={price}
             onSetPrice={onSetPrice}
+            isPriceInvalid={isPriceInvalid}
             currency={currency}
             setCurrency={setCurrency}
             isCurrencyDisabled={isCurrencyDisabled}
@@ -166,7 +177,7 @@ export default function AlcoholCalculator() {
             </p>
             <button
               type="submit"
-              className="bg-cyan-500 hover:bg-cyan-700 disabled:bg-gray-300 text-white font-bold py-2 px-4 rounded cursor-pointer"
+              className="bg-green-500 hover:bg-green-700 disabled:bg-gray-300 text-white font-bold py-2 px-4 rounded cursor-pointer"
               disabled={isButtonDisabled}
             >
               Calculate the alcohol price! 🧮
@@ -179,6 +190,7 @@ export default function AlcoholCalculator() {
             isShowResult={isShowResult}
             history={history}
             comparisonFlags={comparisonFlags}
+            onAddNewDrink={onAddNewDrink}
             onReset={onReset}
           />
         </CurrencyContext.Provider>

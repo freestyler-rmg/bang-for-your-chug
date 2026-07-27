@@ -2,16 +2,18 @@ import InputField from '../atoms/InputField';
 
 interface InputFieldProps {
   drinkName: string;
-  setDrinkName: string;
+  setDrinkName: (value: string) => void;
   volume: string;
-  onSetVolume: () => void;
+  onSetVolume: (value: string) => void;
   isVolumeInvalid: boolean;
   abv: string;
-  onSetAbv: () => void;
+  onSetAbv: (value: string) => void;
+  isAbvInvalid: boolean;
   price: string;
-  onSetPrice: () => void;
+  onSetPrice: (value: string) => void;
+  isPriceInvalid: boolean;
   currency: string;
-  setCurrency: () => void;
+  setCurrency: (value: string) => void;
   isCurrencyDisabled: boolean;
 }
 
@@ -23,8 +25,10 @@ export default function InputFields({
   isVolumeInvalid,
   abv,
   onSetAbv,
+  isAbvInvalid,
   price,
   onSetPrice,
+  isPriceInvalid,
   currency,
   setCurrency,
   isCurrencyDisabled,
@@ -52,6 +56,7 @@ export default function InputFields({
           emoji="🍷"
           value={abv}
           onValueChange={onSetAbv}
+          isError={isAbvInvalid}
           errorMessage="Percentage is a number thingy"
         />
       </div>
@@ -62,6 +67,7 @@ export default function InputFields({
           emoji="💵"
           value={price}
           onValueChange={onSetPrice}
+          isError={isPriceInvalid}
           errorMessage="Price is...... a number, right?"
         />
       </div>

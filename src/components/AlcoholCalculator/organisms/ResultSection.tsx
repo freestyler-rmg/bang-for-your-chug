@@ -5,6 +5,7 @@ type ResultSectionProps = {
   isShowResult: boolean;
   history?: any;
   comparisonFlags?: any;
+  onAddNewDrink: () => void;
   onReset: () => void;
 };
 
@@ -12,6 +13,7 @@ export default function ResultSection({
   isShowResult,
   history,
   comparisonFlags,
+  onAddNewDrink,
   onReset,
 }: ResultSectionProps) {
   {
@@ -40,12 +42,22 @@ export default function ResultSection({
                 fill out the form above again.
               </p>
               {/* TODO: add button to scroll to the top and focus on the drink name input */}
-              <button
-                onClick={(e) => onReset()}
-                className="rounded cursor-pointer border border-rose-800 py-2 px-4 hover:bg-rose-800 text-neutral-50"
-              >
-                Reset
-              </button>
+              <div>
+                <button
+                  onClick={(e) => onAddNewDrink()}
+                  className="rounded cursor-pointer bg-cyan-500 py-2 px-4 hover:bg-cyan-700 text-neutral-50 mb-4"
+                >
+                  Add another drink
+                </button>
+              </div>
+              <div>
+                <button
+                  onClick={(e) => onReset()}
+                  className="rounded cursor-pointer border border-rose-800 py-2 px-4 hover:bg-rose-800 text-neutral-50"
+                >
+                  Reset
+                </button>
+              </div>
             </div>
           </div>
         )}
