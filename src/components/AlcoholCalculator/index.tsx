@@ -3,10 +3,9 @@ CHECKLIST
 move input field to input fields
 */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 import InputFields from './organisms/InputFields';
-import InputField from './atoms/InputField';
 import WelcomeHeader from './organisms/WelcomeHeader';
 import ResultSection from './organisms/ResultSection';
 
@@ -58,7 +57,7 @@ export default function AlcoholCalculator() {
 
   const isCurrencyDisabled = history.length > 0;
 
-  function calculate(e: React.SubmitEvent<HTMLFormElement>) {
+  function calculate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     setIsShowResult(true);
@@ -67,23 +66,22 @@ export default function AlcoholCalculator() {
     const alcoholPricePerMilliliter = Number(price) / alcoholVolume;
     const alcoholPricePerPercent = (Number(price) / alcoholVolume) * (Number(volume) / 100);
 
-    if (history.length > 1) {
-      setHistory(history.slice(1));
-    }
+    const newEntry = {
+      name: drinkName,
+      volume: volume,
+      abv: abv,
+      price: price,
+      currency: currency,
+      alcoholVolume: alcoholVolume,
+      alcoholPricePerMilliliter: alcoholPricePerMilliliter,
+      alcoholPricePerPercent: alcoholPricePerPercent,
+    };
 
-    setHistory([
-      ...history,
-      {
-        name: drinkName,
-        volume: volume,
-        abv: abv,
-        price: price,
-        currency: currency,
-        alcoholVolume: alcoholVolume,
-        alcoholPricePerMilliliter: alcoholPricePerMilliliter,
-        alcoholPricePerPercent: alcoholPricePerPercent,
-      },
-    ]);
+    setHistory((prev) => {
+      console.log('prev', prev);
+      const updated = [...prev, newEntry];
+      return updated.length > 2 ? updated.slice(1) : updated;
+    });
 
     setDrinkName('');
     setVolume('');
@@ -92,22 +90,26 @@ export default function AlcoholCalculator() {
     setIsOnVolumeOnChange(false);
     setIsOnAbvOnChange(false);
     setIsOnPriceOnChange(false);
-
-    // window.scrollTo({
-    //   top: document.body.scrollHeight,
-    //   behavior: 'smooth', // Optional: Add smooth scrolling effect
-    // });
   }
 
   function onReset() {
     setHistory([]);
     setIsShowResult(false);
 
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: 'smooth', // Optional: Add smooth scrolling effect
-    // });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Optional: Add smooth scrolling effect
+    });
   }
+
+  useEffect(() => {
+    if (isShowResult) {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, [history]); // runs after history updates and the DOM reflects it
 
   // 📜 CODE BLOCK - add green text color to the cheaper drink
   const comparisonFlags = useMemo(() => {
@@ -132,63 +134,27 @@ export default function AlcoholCalculator() {
     }));
   }, [history]);
 
+  // 🖨️ - Render
   return (
     <>
       <div className="flex max-w-screen min-h-screen justify-center items-center flex-col px-4 py-8">
         <WelcomeHeader />
 
         <form className="flex flex-col max-w-sm w-full" onSubmit={calculate}>
-          {/* TODO: move these InputField into InputFields */}
-          <div className="mb-8 flex flex-col items-center">
-            <InputField
-              title="Drink Name"
-              emoji="🍶"
-              value={drinkName}
-              onValueChange={setDrinkName}
-            />
-          </div>
-
-          <div className="mb-8 flex flex-col items-center">
-            <InputField
-              title="Volume (ml)"
-              emoji="⚖️"
-              value={volume}
-              onValueChange={onSetVolume}
-              isError={isVolumeInvalid}
-              errorMessage="Milliliter supposed to be in number, ya know"
-            />
-          </div>
-
-          <div className="mb-8 flex flex-col items-center">
-            <InputField
-              title="Alcohol by Volume (%)"
-              emoji="🍷"
-              value={abv}
-              onValueChange={onSetAbv}
-              errorMessage="Percentage is a number thingy"
-            />
-          </div>
-
-          <div className="mb-8 flex flex-col items-center">
-            <InputField
-              title="Price"
-              emoji="💵"
-              value={price}
-              onValueChange={onSetPrice}
-              errorMessage="Price is...... a number, right?"
-            />
-          </div>
-
-          <div className="mb-8 flex flex-col items-center">
-            <InputField
-              title="Currency"
-              emoji="💲"
-              value={currency}
-              onValueChange={setCurrency}
-              isDisabled={isCurrencyDisabled}
-              isSmall
-            />
-          </div>
+          <InputFields
+            drinkName={drinkName}
+            setDrinkName={setDrinkName}
+            volume={volume}
+            onSetVolume={onSetVolume}
+            isVolumeInvalid={isVolumeInvalid}
+            abv={abv}
+            onSetAbv={onSetAbv}
+            price={price}
+            onSetPrice={onSetPrice}
+            currency={currency}
+            setCurrency={setCurrency}
+            isCurrencyDisabled={isCurrencyDisabled}
+          />
 
           <div className="flex flex-col items-center">
             <p className="text-sm text-center mb-4">
