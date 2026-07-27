@@ -1,3 +1,5 @@
+import { useRef, useEffect } from 'react';
+
 type InputFieldProps = {
   title: string;
   emoji?: string;
@@ -7,6 +9,7 @@ type InputFieldProps = {
   isSmall?: boolean;
   isError?: boolean;
   errorMessage?: string;
+  isAutoFocus?: boolean;
 };
 
 const defaultInputStyling = `border rounded-sm border-gray-300 px-3 py-2 text-center disabled:border-neutral-600 disabled:bg-neutral-800 disabled:text-neutral-600`;
@@ -28,7 +31,16 @@ export default function InputField({
   isSmall = false,
   isError = false,
   errorMessage,
+  isAutoFocus = false,
 }: InputFieldProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isAutoFocus) {
+      inputRef.current?.focus();
+    }
+  }, [isAutoFocus]);
+
   return (
     <>
       <label className="text-xl mb-2">
@@ -36,6 +48,7 @@ export default function InputField({
       </label>
       <input
         type="text"
+        ref={inputRef}
         value={value}
         onChange={(e) => onValueChange?.(e.target.value)}
         disabled={isDisabled}

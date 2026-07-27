@@ -1,6 +1,5 @@
 /*
 CHECKLIST
-- auto focus on drink name input on load
 - auto focus on drink name input on function onAddNewDrink
 */
 

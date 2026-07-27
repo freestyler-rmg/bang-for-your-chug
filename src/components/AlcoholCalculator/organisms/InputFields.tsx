@@ -36,7 +36,13 @@ export default function InputFields({
   return (
     <>
       <div className="mb-8 flex flex-col items-center">
-        <InputField title="Drink Name" emoji="🍶" value={drinkName} onValueChange={setDrinkName} />
+        <InputField
+          title="Drink Name"
+          emoji="🍶"
+          value={drinkName}
+          onValueChange={setDrinkName}
+          isAutoFocus
+        />
       </div>
 
       <div className="mb-8 flex flex-col items-center">
