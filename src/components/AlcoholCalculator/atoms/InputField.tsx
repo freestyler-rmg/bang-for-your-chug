@@ -9,7 +9,7 @@ type InputFieldProps = {
   isSmall?: boolean;
   isError?: boolean;
   errorMessage?: string;
-  isAutoFocus?: boolean;
+  ref?: React.Ref<HTMLInputElement>;
 };
 
 const defaultInputStyling = `border rounded-sm border-gray-300 px-3 py-2 text-center disabled:border-neutral-600 disabled:bg-neutral-800 disabled:text-neutral-600`;
@@ -17,7 +17,7 @@ const errorInputStyling = 'border-red-300';
 
 function ShowErrorMessage({ isError, errorMessage }: { isError: boolean; errorMessage: string }) {
   if (isError) {
-    return <p className="text-red-400 text-xs mt-2">{errorMessage}</p>;
+    return <p className="text-red-400 text-xs mt-2">{errorMessage ?? ''}</p>;
   }
   return null;
 }
@@ -31,15 +31,15 @@ export default function InputField({
   isSmall = false,
   isError = false,
   errorMessage,
-  isAutoFocus = false,
+  ref,
 }: InputFieldProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  // const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (isAutoFocus) {
-      inputRef.current?.focus();
-    }
-  }, [isAutoFocus]);
+  // useEffect(() => {
+  //   if (isAutoFocus) {
+  //     inputRef.current?.focus();
+  //   }
+  // }, [isAutoFocus]);
 
   return (
     <>
@@ -48,7 +48,7 @@ export default function InputField({
       </label>
       <input
         type="text"
-        ref={inputRef}
+        ref={ref}
         value={value}
         onChange={(e) => onValueChange?.(e.target.value)}
         disabled={isDisabled}

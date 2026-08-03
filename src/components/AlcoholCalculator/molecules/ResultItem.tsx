@@ -27,19 +27,19 @@ export default function ResultItem({
         <p>Drink name:</p>
         <p className="text-2xl font-semibold capitalize">{item.name}</p>
         <p className="mb-6 text-sm text-gray-400">
-          {item.volume}ml, abv {item.abv}%, {currencyFormatter(Number(item.price), currency)}
+          {item.volume} ml, abv {item.abv}%, {currencyFormatter(Number(item.price), currency)}
           {item.currency}
         </p>
         <p>Total alcohol:</p>
         <p
-          className={`mb-6 text-xl font-semibold ${comparisonFlag.isMoreAlcoholVolume ? 'text-green-400' : ''}`}
+          className={`mb-6 text-xl font-semibold ${comparisonFlag?.isMoreAlcoholVolume ? 'text-green-400' : ''}`}
         >
-          {item.alcoholVolume}ml
+          {item.alcoholVolume} ml
         </p>
         <p>Alcohol price:</p>
         <p className="text-xl">
           <span
-            className={`font-semibold ${comparisonFlag.isAlcoholPricePerMlCheaper ? 'text-green-400' : ''}`}
+            className={`font-semibold ${comparisonFlag?.isAlcoholPricePerMlCheaper ? 'text-green-400' : ''}`}
           >
             {currencyFormatter(item.alcoholPricePerMilliliter, currency)} {item.currency}
           </span>
@@ -47,7 +47,7 @@ export default function ResultItem({
         </p>
         <p className="text-xl mb-1">
           <span
-            className={`font-semibold ${comparisonFlag.isAlcoholPricePerPercentCheaper ? 'text-green-400' : ''}`}
+            className={`font-semibold ${comparisonFlag?.isAlcoholPricePerPercentCheaper ? 'text-green-400' : ''}`}
           >
             {currencyFormatter(item.alcoholPricePerPercent, currency)} {item.currency}
           </span>

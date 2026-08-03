@@ -15,6 +15,7 @@ interface InputFieldProps {
   currency: string;
   setCurrency: (value: string) => void;
   isCurrencyDisabled: boolean;
+  drinkNameRef?: React.Ref<HTMLInputElement>;
 }
 
 export default function InputFields({
@@ -32,6 +33,7 @@ export default function InputFields({
   currency,
   setCurrency,
   isCurrencyDisabled,
+  drinkNameRef,
 }: InputFieldProps) {
   return (
     <>
@@ -40,8 +42,8 @@ export default function InputFields({
           title="Drink Name"
           emoji="🍶"
           value={drinkName}
+          ref={drinkNameRef}
           onValueChange={setDrinkName}
-          isAutoFocus
         />
       </div>
 

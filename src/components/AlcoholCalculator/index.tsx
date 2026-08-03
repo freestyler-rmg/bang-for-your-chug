@@ -1,9 +1,4 @@
-/*
-CHECKLIST
-- auto focus on drink name input on function onAddNewDrink
-*/
-
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 
 import InputFields from './organisms/InputFields';
 import WelcomeHeader from './organisms/WelcomeHeader';
@@ -28,7 +23,15 @@ export default function AlcoholCalculator() {
   const isVolumeInvalid = (isVolumeOnChange && !volume.length) || isNaN(volume);
   const isAbvInvalid = (isAbvOnChange && !abv.length) || isNaN(abv);
   const isPriceInvalid = (isPriceOnChange && !price.length) || isNaN(price);
-  const isButtonDisabled = isVolumeInvalid || isAbvInvalid || isPriceInvalid || !currency;
+  const isThereEmptyValue = !(
+    drinkName.length &&
+    volume.length &&
+    abv.length &&
+    price.length &&
+    currency.length
+  );
+  const isButtonDisabled =
+    isVolumeInvalid || isAbvInvalid || isPriceInvalid || !currency || isThereEmptyValue;
 
   function onSetVolume(value: string) {
     setVolume(value);
@@ -55,7 +58,7 @@ export default function AlcoholCalculator() {
   const [history, setHistory] = useState<inputtedHistory[]>([]);
   const [isShowResult, setIsShowResult] = useState(false);
 
-  const isCurrencyDisabled = history.length > 0;
+  const isHistoryNotEmpty = history.length > 0;
 
   function calculate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -78,7 +81,6 @@ export default function AlcoholCalculator() {
     };
 
     setHistory((prev) => {
-      console.log('prev', prev);
       const updated = [...prev, newEntry];
       return updated.length > 2 ? updated.slice(1) : updated;
     });
@@ -102,11 +104,14 @@ export default function AlcoholCalculator() {
   }, [history]); // runs after history updates and the DOM reflects it
 
   // 📜 CODE BLOCK - button interaction
+  const drinkNameRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    drinkNameRef.current?.focus();
+  }, []);
+
   function onAddNewDrink() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    drinkNameRef.current?.focus();
   }
 
   function onReset() {
@@ -149,9 +154,12 @@ export default function AlcoholCalculator() {
         <WelcomeHeader />
 
         <form className="flex flex-col max-w-sm w-full" onSubmit={calculate}>
+          {isHistoryNotEmpty && <p className="text-center pb-2 border-b mb-6">Next drink</p>}
+
           <InputFields
             drinkName={drinkName}
             setDrinkName={setDrinkName}
+            drinkNameRef={drinkNameRef}
             volume={volume}
             onSetVolume={onSetVolume}
             isVolumeInvalid={isVolumeInvalid}
@@ -163,14 +171,14 @@ export default function AlcoholCalculator() {
             isPriceInvalid={isPriceInvalid}
             currency={currency}
             setCurrency={setCurrency}
-            isCurrencyDisabled={isCurrencyDisabled}
+            isCurrencyDisabled={isHistoryNotEmpty}
           />
 
           <div className="flex flex-col items-center">
             <p className="text-sm text-center mb-4">
               Alcoholic beverage ain't cheap,
               <br />
-              but that doesn't mean you can't efficiently
+              but that doesn't mean you can't efficiently&nbsp;
               <br className="md:hidden" />
               reap what you sip.
             </p>
